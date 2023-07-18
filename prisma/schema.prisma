@@ -19,14 +19,14 @@ model User {
   phone    String
   status   Boolean
   points   Float
-  role Role @default(GUIDE)
+  role Role @default(GUEST)
 
   @@map("users")
 }
 
 enum Role{
   USER
-  GUIDE
+  GUEST
   EMPLOYEE
   ADMIN
 
