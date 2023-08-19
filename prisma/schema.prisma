@@ -20,6 +20,7 @@ model User {
   status   Boolean
   points   Float
   role Role @default(GUEST)
+  order Order[]
 
   @@map("users")
 }
@@ -31,4 +32,30 @@ enum Role{
   ADMIN
 
   @@map("_Role")
+}
+
+model Item {
+  id String @id @default(uuid())
+
+  name     String
+  description String @db.VarChar(800)
+  price  Float
+
+  order Order[]
+  @@map("items")
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  items Item[]
+  total Float
+  qtd Int
+  status Boolean
+  finished Boolean
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+  obs String @db.VarChar(800)
+
+  @@map("order")
 }
