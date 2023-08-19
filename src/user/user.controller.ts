@@ -17,23 +17,21 @@ import { FileInterceptor } from '@nestjs/platform-express';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard, RolesGuard)
-  @Post('/admin')
+  @Post('/user')
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @ApiBearerAuth()
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   @UseGuards(JwtGuard, RolesGuard)
-  @Patch('/admin/updateAdmmin/:id')
-  adminUpdateAdmin(@Param('id') id: string, @Body() updateUserDto: UpdateAdminDto) {
+  @Patch('/admin/updateAdmmin/:email')
+  adminUpdateAdmin(@Param('email') id: string, @Body() updateUserDto: UpdateAdminDto) {
     return this.userService.updateAdm(id, updateUserDto);
   }
 
   @ApiBearerAuth()
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   @UseGuards(JwtGuard, RolesGuard)
   @Get('/admin/:email')
   findById(@Param('email') email: string) {

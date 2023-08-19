@@ -1,0 +1,11 @@
+# Arquivos e pastas específicas do NestJS
+node_modules/
+dist/
+*.log
+
+# Arquivos e pastas gerais que geralmente não são necessários no contêiner
+npm-debug.log
+yarn-error.log
+#.env
+.DS_Store
+

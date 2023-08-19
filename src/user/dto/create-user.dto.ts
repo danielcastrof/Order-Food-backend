@@ -21,24 +21,14 @@ export class CreateUserDto extends User {
   @ApiProperty({example: 'João da Silva Sauros'})
   @IsString()
   name: string;
-  
-  @ApiProperty({example: '19909882712'})
-  @IsString()
-  cpf: string;
 
-  @ApiProperty({example: 'Rua dos bobos, 0'})
-  @IsString()
-  address: string;
-
-  @ApiProperty({example: '(81) 98765-4321'})
+  @ApiProperty({example: '81 99999-9999'})
   @IsString()
   phone: string;
 
-  @ApiProperty({example: '3fb2818b-bc43-4f34-ba31-8f96a5ab8372'})
-  @IsString()
-  courseId: string;
-
-  @ApiProperty({example: true})
-  @IsBoolean()
+  @ApiProperty({example: 'true'})
   status: boolean;
+
+  @ApiProperty({example: 10})
+  points: number;
 }
