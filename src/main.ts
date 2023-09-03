@@ -13,7 +13,10 @@ async function bootstrap() {
       'Projeto back-end DEV WEB.',
     )
     .setVersion('1.0')
+    .addTag('Autenticação')
     .addTag('Usuários')
+    .addTag('Itens')
+    .addTag('Pedidos')
     .addBearerAuth()
     .build();
 
