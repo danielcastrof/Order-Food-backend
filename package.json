@@ -2,6 +2,9 @@
   "name": "backend-order-food",
   "version": "0.0.1",
   "description": "",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "author": "",
   "private": true,
   "license": "UNLICENSED",

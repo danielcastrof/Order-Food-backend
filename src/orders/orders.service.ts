@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from './../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { Item } from '@prisma/client';
 
 
 @Injectable()
@@ -35,8 +36,7 @@ export class OrdersService {
   }
 
   async addingItemsOrder(item: Item, orderId: string){
-    const order = await this.findOne(orderId)
-    //order. = 'asdasd'
+    const order = await this.prisma.order.findUnique({where: {id: orderId}})
   }
 
   findAll() {
@@ -48,7 +48,6 @@ export class OrdersService {
       where: {
        id: id
       }});
-    finds.
     return finds
   }
 

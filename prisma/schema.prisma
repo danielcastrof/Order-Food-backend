@@ -25,6 +25,47 @@ model User {
   @@map("users")
 }
 
+model Item {
+  id String @id @default(uuid())
+
+  name     String
+  category String
+  description String @db.VarChar(800)
+  price  Float
+  quantity Int
+  url String @db.VarChar(800)
+  item ItemOrder[]
+
+  @@map("items")
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  total Float
+  qtd Int
+  status Boolean
+  finished Boolean
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+  obs String @db.VarChar(800)
+  item ItemOrder[]
+
+  @@map("order")
+}
+
+model ItemOrder{
+  id Int @id @default(autoincrement())
+  order Order @relation(fields: [orderId], references: [id])
+  orderId String
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  itemId String
+  quantity Int
+  subtotal Float
+
+  @@map("item-order")
+}
+
 enum Role{
   USER
   GUEST
@@ -34,28 +75,15 @@ enum Role{
   @@map("_Role")
 }
 
-model Item {
-  id String @id @default(uuid())
-
-  name     String
-  description String @db.VarChar(800)
-  price  Float
-
-  order Order[]
-  @@map("items")
-}
-
-model Order {
-  id String @id @default(uuid())
-
-  items Item[]
-  total Float
-  qtd Int
-  status Boolean
-  finished Boolean
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
-  obs String @db.VarChar(800)
-
-  @@map("order")
+enum Category{
+  ALMOCO
+  BEBIDAS
+  SOBREMESAS
+  PETISCOS
+  EXECUTIVO
+  DRINKS
+  BURGERS
+  PIZZA
+  SORVETES
+  ACAI
 }
