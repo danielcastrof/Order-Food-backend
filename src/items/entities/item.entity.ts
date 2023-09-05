@@ -6,5 +6,8 @@ export class Item {
   name: string;
   description: string;
   price: number;
+  category: string;
+  quantity: number;
+  url: string;
   order?: Order[];
 }

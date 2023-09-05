@@ -8,9 +8,9 @@ const prisma = new PrismaClient();
 
 async function main(){
     for(const item of itens){
-        await prisma.item.create({
-            data: {...item, url: item.url},
-        })
+        // await prisma.item.create({
+        //     //data: {...item, url: item.url},
+        // })
     }
 
     for(let i = 0; i < 3; i++){

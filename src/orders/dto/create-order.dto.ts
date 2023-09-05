@@ -31,4 +31,6 @@ export class CreateOrderDto extends Order {
   
   @ApiProperty()
   items: Item[];
+
+  obs: string;
 }

@@ -15,7 +15,10 @@ export class ItemsService {
     const createdItem = await this.prisma.item.create({data: {
         "name" : item.name, 
         "description": item.description,
-        "price": item.price
+        "price": item.price,
+        "quantity": item.quantity,
+        "category": item.category,
+        "url": item.url
       }
     });
     

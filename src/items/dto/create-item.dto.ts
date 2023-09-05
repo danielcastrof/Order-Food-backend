@@ -15,4 +15,8 @@ export class CreateItemDto extends Item {
   @ApiProperty({example: 'Bolo de chocolate'})
   @IsString()
   description: string;
+
+  category: string;
+  quantity: number;
+  url: string;
 }
