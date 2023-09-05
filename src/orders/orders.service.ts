@@ -3,22 +3,25 @@ import { PrismaService } from './../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Item } from '@prisma/client';
+import { UserService } from 'src/user/user.service';
 
 
 @Injectable()
 export class OrdersService {
-  constructor(private readonly prisma: PrismaService){}
-  async create(createOrderDto: CreateOrderDto) {
+  constructor(private readonly prisma: PrismaService, private readonly userService: UserService){}
+  async create(headers: {}, createOrderDto: CreateOrderDto) {
+    const user = await this.userService.findByUserToken(headers);
+    console.log(user)
     const order = {
       ...createOrderDto,
     }
 
     const createdItem = await this.prisma.order.create({data: {
         "total": 0,
-        "qtd": 0,
+        "qtd": order.qtd,
         "status": false,
         "finished": false,
-        "authorId": "7cedd9d4-21e6-4417-b583-f28c87d728bd", 
+        "authorId": user.id, 
         "obs": order.obs
       }
     });
@@ -44,8 +47,16 @@ export class OrdersService {
     return finds
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: string, updateOrderDto: UpdateOrderDto) {
+    const order_ = await this.findOne(id);
+    const order = await this.prisma.order.update({
+      where: {id: order_.id},
+      data: {
+        status: updateOrderDto.status === null ? order_.status : updateOrderDto.status,
+        finished: updateOrderDto.finished === null ? order_.finished : updateOrderDto.finished
+      }
+    })
+    return order;
   }
 
   remove(id: number) {

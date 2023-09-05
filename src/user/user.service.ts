@@ -5,6 +5,7 @@ import { Role } from 'src/auth/models/role.enum';
 import { PrismaService } from './../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
+const jwt = require('jsonwebtoken');
 
 @Injectable()
 export class UserService {
@@ -60,6 +61,26 @@ export class UserService {
     const finds = await this.prisma.user.findUnique({where: {email}});
     
     return finds;
+  }
+
+  async myUser (token: string) {
+    try{
+      const userId = jwt.verify(token, process.env.JWT_SECRET, function(err: any, decoded: any) {
+          const userId = decoded.sub
+          return userId
+      });
+      return await this.prisma.user.findUnique({where: {id: userId}, select:
+        {id: true, name: true, email: true, role: true}
+      })
+    } catch (error) {
+       console.log(error)
+    }
+  }
+
+  async findByUserToken(headers: {}) {
+    console.log(headers)
+    if(headers["authorization"].includes('Bearer')) return await this.myUser(headers["authorization"].split("Bearer ")[1].trim())
+    return await this.myUser(headers["authorization"].trim())
   }
 
 }
