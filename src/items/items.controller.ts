@@ -14,7 +14,7 @@ export class ItemsController {
     return this.itemsService.create(createItemDto);
   }
   
-  @Get('search/:name')
+  @Get()
   findAll() {
     return this.itemsService.findAll();
   }

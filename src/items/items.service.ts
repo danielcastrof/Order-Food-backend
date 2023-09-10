@@ -28,11 +28,10 @@ export class ItemsService {
   }
   
   async findAll() {
-    const finds = await this.prisma.item.findMany({
-      take: 2
-    })
+    const finds = await this.prisma.item.findMany()
     return finds;
   }
+  
 
   async findAllSearch(name: string) {
     const finds = await this.prisma.item.findMany({
