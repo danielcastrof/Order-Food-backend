@@ -21,6 +21,12 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
+  @Get('/orderUser')
+  findAllOrdersUser(@Req() request: Request) {
+    const headers = request.headers;
+    return this.ordersService.findAllOrdersUser(headers);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(id);

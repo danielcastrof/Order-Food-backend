@@ -11,7 +11,7 @@ export class OrdersService {
   constructor(private readonly prisma: PrismaService, private readonly userService: UserService){}
   async create(headers: {}, createOrderDto: CreateOrderDto) {
     const user = await this.userService.findByUserToken(headers);
-    console.log(user)
+
     const order = {
       ...createOrderDto,
     }
@@ -37,6 +37,16 @@ export class OrdersService {
 
   findAll() {
     return `This action returns all orders`;
+  }
+
+  async findAllOrdersUser(headers: {}) {
+    const user = await this.userService.findByUserToken(headers);
+    const id = user.id
+    const finds = await this.prisma.order.findMany({where: {
+      authorId: id
+    }});
+    console.log(finds)
+    return finds;
   }
 
   async findOne(id: string) {
