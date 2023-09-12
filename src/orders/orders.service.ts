@@ -39,12 +39,20 @@ export class OrdersService {
     return `This action returns all orders`;
   }
 
+  async findOneOrder(id: string) {
+    const finds = await this.prisma.order.findUnique({
+      where: {
+       id: id
+      }});
+    return finds
+  }
+
   async findAllOrdersUser(headers: {}) {
     const user = await this.userService.findByUserToken(headers);
     const id = user.id
     const finds = await this.prisma.order.findMany({where: {
       authorId: id
-    }});
+    }, include: { item: true }});
     console.log(finds)
     return finds;
   }
@@ -53,7 +61,7 @@ export class OrdersService {
     const finds = await this.prisma.order.findUnique({
       where: {
        id: id
-      }});
+      }, include: { item: true }});
     return finds
   }
 
