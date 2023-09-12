@@ -17,6 +17,7 @@ async function bootstrap() {
     .addTag('Usuários')
     .addTag('Itens')
     .addTag('Pedidos')
+    .addTag('IA Generativa')
     .addBearerAuth()
     .build();
 

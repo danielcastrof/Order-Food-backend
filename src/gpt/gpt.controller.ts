@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { GptService } from './gpt.service';
 import { CreateGptDto } from './dto/create-gpt.dto';
 import { UpdateGptDto } from './dto/update-gpt.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('IA Generativa')
 @Controller('gpt')
 export class GptController {
   constructor(private readonly gptService: GptService) {}

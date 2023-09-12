@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Role } from 'src/auth/models/role.enum';
 import { PrismaService } from './../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
+import { Role } from '@prisma/client';
 const jwt = require('jsonwebtoken');
 
 @Injectable()
